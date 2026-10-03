@@ -55,6 +55,7 @@ declare namespace sharp {
         archive?: string | undefined;
         cairo?: string | undefined;
         cgif?: string | undefined;
+        de265?: string | undefined;
         exif?: string | undefined;
         expat?: string | undefined;
         ffi?: string | undefined;

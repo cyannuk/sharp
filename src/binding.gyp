@@ -195,6 +195,8 @@
                 '-Wl,--disable-new-dtags',
                 '-Wl,-z,nodelete',
                 '-Wl,-Bsymbolic-functions',
+                # Locally-built libvips with HEIC/HEVC support takes precedence, see scripts/libvips-heic/build.sh
+                '-Wl,-rpath=\'$$ORIGIN/../../../vendor/sharp-libvips-<(platform_and_arch)/lib\'',
                 '-Wl,-rpath=\'$$ORIGIN/../../sharp-libvips-<(platform_and_arch)/lib\'',
                 '-Wl,-rpath=\'$$ORIGIN/../../../sharp-libvips-<(platform_and_arch)/<(sharp_libvips_version)/lib\'',
                 '-Wl,-rpath=\'$$ORIGIN/../../node_modules/@img/sharp-libvips-<(platform_and_arch)/lib\'',

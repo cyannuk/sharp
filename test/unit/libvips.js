@@ -144,6 +144,15 @@ suite('libvips binaries', () => {
         t.assert.strictEqual((await fs.stat(dir)).isDirectory(), true);
       }
     });
+    test('vendor sharp-libvips takes precedence', (t) => {
+      const dir = libvips.vendorSharpLibvipsDir();
+      t.assert.strictEqual('string', typeof dir);
+      if (dir) {
+        t.assert.strictEqual(libvips.buildSharpLibvipsIncludeDir(), `${dir}/include`);
+        t.assert.strictEqual(libvips.buildSharpLibvipsLibDir(), `${dir}/lib`);
+        t.assert.strictEqual(libvips.useGlobalLibvips(), false);
+      }
+    });
   });
 
   suite('Runtime detection', () => {
