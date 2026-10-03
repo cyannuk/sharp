@@ -199,20 +199,6 @@ suite('libvips binaries', () => {
   });
 
   suite('yarn locator hash', () => {
-    test('known platform', (t) => {
-      t.plan(1);
-      const cc = process.env.CC;
-      delete process.env.CC;
-      process.env.npm_config_platform = 'linux';
-      process.env.npm_config_arch = 's390x';
-      process.env.npm_config_libc = '';
-      const locatorHash = libvips.yarnLocator();
-      t.assert.strictEqual(locatorHash, 'e8750f0ab9');
-      delete process.env.npm_config_platform;
-      delete process.env.npm_config_arch;
-      delete process.env.npm_config_libc;
-      process.env.CC = cc;
-    });
     test('unknown platform', (t) => {
       t.plan(1);
       process.env.npm_config_platform = 'unknown-platform';

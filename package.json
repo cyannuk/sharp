@@ -98,6 +98,7 @@
     "build:dist": "node scripts/build.mjs",
     "build:libvips-heic": "scripts/libvips-heic/build.sh",
     "build:win32": "scripts/libvips-heic/build-sharp-win32.sh",
+    "package-heic": "npm run build:dist && npm run build && npm run build:win32 && npm pack",
     "clean": "rm -rf src/build/ test/fixtures/output.*",
     "test": "npm run lint && npm run test-unit",
     "lint": "npm run lint-cpp && npm run lint-js && npm run lint-types && npm run lint-publish",
@@ -117,9 +118,10 @@
   "type": "commonjs",
   "files": [
     "dist",
-    "install",
-    "lib/index.d.ts",
-    "src/*.{cc,h,gyp}"
+    "src/build/Release/sharp-linux-x64-*.node",
+    "src/build/Release/sharp-win32-x64-*.node",
+    "vendor/sharp-libvips-linux-x64/lib/libvips-cpp.so.*",
+    "vendor/sharp-libvips-*/*.{json,md}"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -164,33 +166,6 @@
     "detect-libc": "^2.1.2",
     "semver": "^7.8.5"
   },
-  "optionalDependencies": {
-    "@img/sharp-darwin-arm64": "0.35.5",
-    "@img/sharp-darwin-x64": "0.35.5",
-    "@img/sharp-freebsd-wasm32": "0.35.5",
-    "@img/sharp-libvips-darwin-arm64": "1.3.4",
-    "@img/sharp-libvips-darwin-x64": "1.3.4",
-    "@img/sharp-libvips-linux-arm": "1.3.4",
-    "@img/sharp-libvips-linux-arm64": "1.3.4",
-    "@img/sharp-libvips-linux-ppc64": "1.3.4",
-    "@img/sharp-libvips-linux-riscv64": "1.3.4",
-    "@img/sharp-libvips-linux-s390x": "1.3.4",
-    "@img/sharp-libvips-linux-x64": "1.3.4",
-    "@img/sharp-libvips-linuxmusl-arm64": "1.3.4",
-    "@img/sharp-libvips-linuxmusl-x64": "1.3.4",
-    "@img/sharp-linux-arm": "0.35.5",
-    "@img/sharp-linux-arm64": "0.35.5",
-    "@img/sharp-linux-ppc64": "0.35.5",
-    "@img/sharp-linux-riscv64": "0.35.5",
-    "@img/sharp-linux-s390x": "0.35.5",
-    "@img/sharp-linux-x64": "0.35.5",
-    "@img/sharp-linuxmusl-arm64": "0.35.5",
-    "@img/sharp-linuxmusl-x64": "0.35.5",
-    "@img/sharp-webcontainers-wasm32": "0.35.5",
-    "@img/sharp-win32-arm64": "0.35.5",
-    "@img/sharp-win32-ia32": "0.35.5",
-    "@img/sharp-win32-x64": "0.35.5"
-  },
   "peerDependenciesMeta": {
     "@types/node": {
       "optional": true
@@ -220,6 +195,13 @@
   "engines": {
     "node": ">=20.9.0"
   },
+  "os": [
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "config": {
     "libvips": ">=8.18.7"
   },

@@ -19,3 +19,4 @@ release-notes.md
 dist
 .libvips-build
 vendor
+sharp-*.tgz

@@ -6,7 +6,7 @@
     'vips_version': '<!(node -p "require(\'../dist/libvips.cjs\').minimumLibvipsVersion")',
     'platform_and_arch': '<!(node -p "require(\'../dist/libvips.cjs\').buildPlatformArch()")',
     'sharp_version': '<!(node -p "require(\'../package.json\').version")',
-    'sharp_libvips_version': '<!(node -p "require(\'../package.json\').optionalDependencies[\'@img/sharp-libvips-<(platform_and_arch)\']")',
+    'sharp_libvips_version': '<!(node -p "require(\'../package.json\').optionalDependencies?.[\'@img/sharp-libvips-<(platform_and_arch)\'] || \'\'")',
     'sharp_libvips_yarn_locator': '<!(node -p "require(\'../dist/libvips.cjs\').yarnLocator()")',
     'sharp_libvips_include_dir': '<!(node -p "require(\'../dist/libvips.cjs\').buildSharpLibvipsIncludeDir()")',
     'sharp_libvips_cplusplus_dir': '<!(node -p "require(\'../dist/libvips.cjs\').buildSharpLibvipsCPlusPlusDir()")',
