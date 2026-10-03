@@ -578,7 +578,7 @@ suite('Image metadata', () => {
     });
   });
 
-  test('GIF', async (t) => {
+  test('GIF', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     const metadata = await sharp(fixtures.inputGif).metadata();
     t.assert.deepStrictEqual(collect(metadata, {
@@ -616,7 +616,7 @@ suite('Image metadata', () => {
     });
   });
 
-  test('GIF grey+alpha', async (t) => {
+  test('GIF grey+alpha', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     const metadata = await sharp(fixtures.inputGifGreyPlusAlpha).metadata();
     t.assert.deepStrictEqual(collect(metadata, {
@@ -652,7 +652,7 @@ suite('Image metadata', () => {
     });
   });
 
-  test('Animated GIF', async (t) => {
+  test('Animated GIF', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     const metadata = await sharp(fixtures.inputGifAnimated).metadata();
     t.assert.deepStrictEqual(collect(metadata, {
@@ -688,7 +688,7 @@ suite('Image metadata', () => {
     });
   });
 
-  test('Animated GIF with limited looping', async (t) => {
+  test('Animated GIF with limited looping', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     const metadata = await sharp(fixtures.inputGifAnimatedLoop3).metadata();
     t.assert.deepStrictEqual(collect(metadata, {

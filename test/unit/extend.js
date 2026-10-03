@@ -122,7 +122,7 @@ suite('Extend', () => {
     t.assert.strictEqual(2226, height);
   });
 
-  test('multi-page extend uses ordered read', async (t) => {
+  test('multi-page extend uses ordered read', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(2);
     const multiPageTiff = await sharp(fixtures.inputGifAnimated, { animated: true })
       .resize({ width: 8, height: 48 })

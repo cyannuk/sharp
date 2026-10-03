@@ -10,7 +10,7 @@ const sharp = require('../../');
 const fixtures = require('../fixtures');
 
 suite('Gain maps', () => {
-  test('Metadata contains gainMap', async (t) => {
+  test('Metadata contains gainMap', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const { format, gainMap } = await sharp(
@@ -22,7 +22,7 @@ suite('Gain maps', () => {
     t.assert.strictEqual(gainMap.image.length, 31738);
   });
 
-  test('Can be regenerated', async (t) => {
+  test('Can be regenerated', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const data = await sharp(fixtures.inputJpgWithGainMap)
@@ -68,7 +68,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('Buffer can be detached and reattached', async (t) => {
+  test('Buffer can be detached and reattached', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const data = await sharp(fixtures.inputJpgWithGainMap)
@@ -115,7 +115,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('File can be detached and reattached', async (t) => {
+  test('File can be detached and reattached', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const outputPath = fixtures.path('output-with-gain-map.jpg');
@@ -163,7 +163,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('Can be detached, resized and reattached', async (t) => {
+  test('Can be detached, resized and reattached', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const data = await sharp(fixtures.inputJpgWithGainMap)
@@ -211,7 +211,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('Can be detached, extracted and reattached', async (t) => {
+  test('Can be detached, extracted and reattached', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const data = await sharp(fixtures.inputJpgWithGainMap)
@@ -259,7 +259,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('Can be detached, rotated and reattached', async (t) => {
+  test('Can be detached, rotated and reattached', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     const data = await sharp(fixtures.inputJpgWithGainMap)
@@ -308,7 +308,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('Cannot keep existing gain map with certain operations', async (t) => {
+  test('Cannot keep existing gain map with certain operations', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(4);
 
     await t.assert.rejects(
@@ -348,7 +348,7 @@ suite('Gain maps', () => {
     );
   });
 
-  test('other metadata can be retained when keeping gain map', async (t) => {
+  test('other metadata can be retained when keeping gain map', { skip: fixtures.unsupported('gain-map') }, async (t) => {
     t.plan(2);
 
     const input = fixtures.inputJpgWithGainMap;

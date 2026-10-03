@@ -150,7 +150,7 @@ suite('Gaussian noise', () => {
     await t.assert.doesNotReject(() => fixtures.assertSimilar(output, fixtures.inputPngRGBWithAlpha, { threshold: 10 }));
   });
 
-  test('animated noise', async (t) => {
+  test('animated noise', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(4);
     const gif = await sharp({
       create: {

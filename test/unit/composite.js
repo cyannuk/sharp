@@ -272,7 +272,7 @@ suite('composite', () => {
     t.assert.deepStrictEqual({ r, g, b }, red);
   });
 
-  test('cutout via dest-in', async (t) => {
+  test('cutout via dest-in', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const { data, info } = await sharp(fixtures.inputJpg)
       .resize(300, 300)

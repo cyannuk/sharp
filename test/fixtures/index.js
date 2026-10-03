@@ -130,6 +130,7 @@ module.exports = {
   inputSvgWithEmbeddedImages: getPath('struct-image-04-t.svg'), // https://dev.w3.org/SVG/profiles/1.2T/test/svg/struct-image-04-t.svg
   inputAvif: getPath('sdr_cosmos12920_cicp1-13-6_yuv444_full_qp10.avif'), // CC by-nc-nd https://github.com/AOMediaCodec/av1-avif/tree/master/testFiles/Netflix
   inputAvifWithPitmBox: getPath('pitm.avif'), // https://github.com/lovell/sharp/issues/4487
+  inputHeic: getPath('hevc.heic'), // magick inputJpg -auto-orient -resize '320x240!' -strip src.png ; heif-enc -e x265 -q 90 -o hevc.heic src.png (libheif 1.23.4, x265 4.1)
   inputJPGBig: getPath('flowers.jpeg'),
 
   inputPngDotAndLines: getPath('dot-and-lines.png'),
@@ -152,6 +153,21 @@ module.exports = {
   fontFamily: 'Noto Sans',
 
   isLittleEndian: endianness() === 'LE',
+
+  // Reason to skip a test that requires features excluded from a minimal libvips build, see scripts/libvips-heic
+  unsupported: (...features) => {
+    const isPrebuilt = Boolean(sharp.versions.heif);
+    const available = {
+      'gif-input': sharp.format.gif.input.buffer,
+      'gif-output': sharp.format.gif.output.buffer,
+      'svg-input': sharp.format.svg.input.buffer,
+      'heif-output': sharp.format.heif.output.buffer,
+      'gain-map': !isPrebuilt || Boolean(sharp.versions.uhdr),
+      'png-palette': !isPrebuilt || Boolean(sharp.versions.imagequant),
+    };
+    const missing = features.filter((feature) => !available[feature]);
+    return missing.length > 0 && `requires ${missing.join(', ')}`;
+  },
 
   // Path for tests requiring human inspection
   path: getPath,

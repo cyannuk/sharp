@@ -100,7 +100,7 @@ suite('Trim borders', () => {
     t.assert.strictEqual(info.trimOffsetLeft, -13);
   });
 
-  test('Animated image rejects', async (t) => {
+  test('Animated image rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .trim()

@@ -347,7 +347,7 @@ suite('Resize fit=cover', () => {
       await t.assert.doesNotReject(() => fixtures.assertSimilar(fixtures.expected('crop-strategy.png'), data));
     });
 
-    test('Animated image rejects', async (t) => {
+    test('Animated image rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
       t.plan(1);
       await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
         .resize({
@@ -436,7 +436,7 @@ suite('Resize fit=cover', () => {
       await t.assert.doesNotReject(() => fixtures.assertSimilar(fixtures.expected('crop-strategy.png'), data));
     });
 
-    test('Animated image rejects', async (t) => {
+    test('Animated image rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
       t.plan(1);
       await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
         .resize({

@@ -60,7 +60,7 @@ suite('Join input images together', () => {
     t.assert.strictEqual(info.channels, 3);
   });
 
-  test('Join two images as animation', async (t) => {
+  test('Join two images as animation', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(4);
     const data = await sharp([
       fixtures.inputPngPalette,

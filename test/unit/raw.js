@@ -326,7 +326,7 @@ suite('Raw pixel data', () => {
     }
   });
 
-  test('Animated', async (t) => {
+  test('Animated', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(4);
     const gif = await sharp(
       Buffer.alloc(8),

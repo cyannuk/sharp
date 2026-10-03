@@ -10,7 +10,7 @@ const sharp = require('../../');
 const fixtures = require('../fixtures');
 
 suite('GIF input', () => {
-  test('GIF Buffer to JPEG Buffer', async (t) => {
+  test('GIF Buffer to JPEG Buffer', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(5);
     const input = await fs.readFile(fixtures.inputGif);
     const { data, info } = await sharp(input)
@@ -24,7 +24,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(4, info.height);
   });
 
-  test('2 channel GIF file to PNG Buffer', async (t) => {
+  test('2 channel GIF file to PNG Buffer', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(6);
     const { data, info } = await sharp(fixtures.inputGifGreyPlusAlpha)
       .resize(8, 4)
@@ -38,7 +38,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(4, info.channels);
   });
 
-  test('Animated GIF first page to non-animated GIF', async (t) => {
+  test('Animated GIF first page to non-animated GIF', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(8);
     const { data, info } = await sharp(fixtures.inputGifAnimated).toBuffer({ resolveWithObject: true });
     t.assert.strictEqual(true, data.length > 0);
@@ -51,7 +51,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(undefined, info.pageHeight);
   });
 
-  test('Animated GIF round trip', async (t) => {
+  test('Animated GIF round trip', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(8);
     const { data, info } = await sharp(fixtures.inputGifAnimated, { pages: -1 }).toBuffer({ resolveWithObject: true });
     t.assert.strictEqual(true, data.length > 0);
@@ -64,7 +64,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(80, info.pageHeight);
   });
 
-  test('Animated GIF limited to fewer pages than the input', async (t) => {
+  test('Animated GIF limited to fewer pages than the input', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(3);
     const { info } = await sharp(fixtures.inputGifAnimated, { pages: 2 }).toBuffer({ resolveWithObject: true });
     t.assert.strictEqual(160, info.height);
@@ -72,7 +72,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(2, info.pages);
   });
 
-  test('Single delay with a page count of zero', async (t) => {
+  test('Single delay with a page count of zero', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(3);
     const { data, info } = await sharp(fixtures.inputJpg, { pages: 0 })
       .resize(8)
@@ -83,7 +83,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(undefined, info.pages);
   });
 
-  test('GIF with reduced colours, no dither, low effort reduces file size', async (t) => {
+  test('GIF with reduced colours, no dither, low effort reduces file size', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(1);
     const original = await sharp(fixtures.inputJpg)
       .resize(120, 80)
@@ -120,7 +120,7 @@ suite('GIF input', () => {
     );
   });
 
-  test('progressive changes file size', async (t) => {
+  test('progressive changes file size', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(1);
     const nonProgressive = await sharp(fixtures.inputGif).gif({ progressive: false }).toBuffer();
     const progressive = await sharp(fixtures.inputGif).gif({ progressive: true }).toBuffer();
@@ -237,7 +237,7 @@ suite('GIF input', () => {
     );
   });
 
-  test('should work with streams when only animated is set', async (t) => {
+  test('should work with streams when only animated is set', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(2);
     const writable = sharp({ animated: true }).gif();
     const fd = await fs.open(fixtures.inputGifAnimated);
@@ -248,7 +248,7 @@ suite('GIF input', () => {
     await fixtures.assertSimilar(fixtures.inputGifAnimated, data);
   });
 
-  test('should work with streams when only pages is set', async (t) => {
+  test('should work with streams when only pages is set', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(2);
     const writable = sharp({ pages: -1 }).gif();
     const fd = await fs.open(fixtures.inputGifAnimated);
@@ -259,7 +259,7 @@ suite('GIF input', () => {
     await fixtures.assertSimilar(fixtures.inputGifAnimated, data);
   });
 
-  test('should optimise file size via interFrameMaxError', async (t) => {
+  test('should optimise file size via interFrameMaxError', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(1);
     const input = sharp(fixtures.inputGifAnimated, { animated: true });
     const before = await input.gif({ interFrameMaxError: 0 }).toBuffer();
@@ -267,7 +267,7 @@ suite('GIF input', () => {
     t.assert.ok(before.length > after.length);
   });
 
-  test('should optimise file size via interPaletteMaxError', async (t) => {
+  test('should optimise file size via interPaletteMaxError', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(1);
     const input = sharp(fixtures.inputGifAnimated, { animated: true });
     const before = await input.gif({ interPaletteMaxError: 0 }).toBuffer();
@@ -275,7 +275,7 @@ suite('GIF input', () => {
     t.assert.ok(before.length > after.length);
   });
 
-  test('should keep duplicate frames via keepDuplicateFrames', async (t) => {
+  test('should keep duplicate frames via keepDuplicateFrames', { skip: fixtures.unsupported('gif-output') }, async (t) => {
     t.plan(3);
     const create = { width: 8, height: 8, channels: 4, background: 'blue' };
     const input = sharp([{ create }, { create }], { join: { animated: true } });
@@ -290,7 +290,7 @@ suite('GIF input', () => {
     t.assert.strictEqual(afterMeta.pages, 2);
   });
 
-  test('non-animated input defaults to no-loop', async (t) => {
+  test('non-animated input defaults to no-loop', { skip: fixtures.unsupported('gif-input', 'gif-output') }, async (t) => {
     t.plan(6);
     for (const input of [fixtures.inputGif, fixtures.inputPng]) {
       const data = await sharp(input)
@@ -305,7 +305,7 @@ suite('GIF input', () => {
     }
   });
 
-  test('Animated GIF to animated WebP merges identical frames', async (t) => {
+  test('Animated GIF to animated WebP merges identical frames', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(3);
     const webp = await sharp(fixtures.inputGifAnimated, { animated: true })
       .webp()

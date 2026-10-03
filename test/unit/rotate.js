@@ -361,7 +361,7 @@ suite('Rotation', () => {
     });
   });
 
-  test('Animated image rotate-then-extract rejects', async (t) => {
+  test('Animated image rotate-then-extract rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .rotate(1)
@@ -374,7 +374,7 @@ suite('Rotation', () => {
       .toBuffer(), /Rotate is not supported for multi-page images/);
   });
 
-  test('Animated image extract-then-rotate rejects', async (t) => {
+  test('Animated image extract-then-rotate rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .extract({
@@ -387,14 +387,14 @@ suite('Rotation', () => {
       .toBuffer(), /Rotate is not supported for multi-page images/);
   });
 
-  test('Animated image rotate 180', async (t) => {
+  test('Animated image rotate 180', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.doesNotReject(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .rotate(180)
       .toBuffer());
   });
 
-  test('Animated image rotate non-180 rejects', async (t) => {
+  test('Animated image rotate non-180 rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .rotate(90)
@@ -593,7 +593,7 @@ suite('Rotation', () => {
     t.assert.strictEqual(height, 6);
   });
 
-  test('Shrink-on-load with autoOrient', async (t) => {
+  test('Shrink-on-load with autoOrient', { skip: fixtures.unsupported('heif-output') }, async (t) => {
     t.plan(3);
     const data = await sharp(fixtures.inputJpgWithLandscapeExif6)
       .resize(8)

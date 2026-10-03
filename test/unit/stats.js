@@ -301,7 +301,7 @@ suite('Image Stats', () => {
     t.assert.strictEqual(true, isInRange(stats.channels[2].maxY, 0, 772));
   });
 
-  test('GIF', async (t) => {
+  test('GIF', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(48);
     const stats = await sharp(fixtures.inputGif).stats();
 
@@ -360,7 +360,7 @@ suite('Image Stats', () => {
     t.assert.strictEqual(true, isInRange(stats.channels[2].maxY, 0, 533));
   });
 
-  test('Grayscale GIF with alpha', async (t) => {
+  test('Grayscale GIF with alpha', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(34);
     const stats = await sharp(fixtures.inputGifGreyPlusAlpha).stats();
 

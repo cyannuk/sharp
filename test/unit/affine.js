@@ -185,7 +185,7 @@ suite('Affine transform', () => {
     await t.assert.doesNotReject(() => fixtures.assertSimilar(data, fixtures.expected('affine-background-all-offsets-expected.jpg')));
   });
 
-  test('Animated image rejects', async (t) => {
+  test('Animated image rejects', { skip: fixtures.unsupported('gif-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(() => sharp(fixtures.inputGifAnimated, { animated: true })
       .affine([1, 1, 1, 1])

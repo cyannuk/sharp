@@ -124,7 +124,7 @@ suite('PNG', () => {
     t.assert.strictEqual(alphaMeanAfter, alphaMeanBefore);
   });
 
-  test('palette decode/encode roundtrip', async (t) => {
+  test('palette decode/encode roundtrip', { skip: fixtures.unsupported('png-palette') }, async (t) => {
     t.plan(1);
     const data = await sharp(fixtures.inputPngPalette)
       .png({ effort: 1, palette: true })
@@ -201,7 +201,7 @@ suite('PNG', () => {
     t.assert.strictEqual(true, data[0].length <= data[1].length);
   });
 
-  test('PNG palette bit depth is large enough to hold the requested number of colours', async (t) => {
+  test('PNG palette bit depth is large enough to hold the requested number of colours', { skip: fixtures.unsupported('png-palette') }, async (t) => {
     const colourCounts = [8, 17, 100, 128];
     t.plan(colourCounts.length);
     // 256-colour gradient so quantisation genuinely fills the palette

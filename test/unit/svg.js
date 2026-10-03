@@ -10,7 +10,7 @@ const sharp = require('../../');
 const fixtures = require('../fixtures');
 
 suite('SVG input', () => {
-  test('Convert SVG to PNG at default 72DPI', async (t) => {
+  test('Convert SVG to PNG at default 72DPI', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const { data, info } = await sharp(fixtures.inputSvg)
       .resize(1024)
@@ -26,7 +26,7 @@ suite('SVG input', () => {
     t.assert.strictEqual(72, (await sharp(data).metadata()).density);
   });
 
-  test('Convert SVG to PNG at 1200DPI', async (t) => {
+  test('Convert SVG to PNG at 1200DPI', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const { data, info } = await sharp(fixtures.inputSvg, { density: 1200 })
       .resize(1024)
@@ -42,7 +42,7 @@ suite('SVG input', () => {
     t.assert.strictEqual(1200, (await sharp(data).metadata()).density);
   });
 
-  test('Convert SVG to PNG at DPI larger than 2400', async (t) => {
+  test('Convert SVG to PNG at DPI larger than 2400', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const size = 1024;
     const metadata = await sharp(fixtures.inputSvgSmallViewBox).metadata();
@@ -58,7 +58,7 @@ suite('SVG input', () => {
     t.assert.strictEqual(9216, (await sharp(data).metadata()).density);
   });
 
-  test('Convert SVG to PNG utilizing scale-on-load', async (t) => {
+  test('Convert SVG to PNG utilizing scale-on-load', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const size = 1024;
     const { data, info } = await sharp(fixtures.inputSvgSmallViewBox)
@@ -72,7 +72,7 @@ suite('SVG input', () => {
     t.assert.strictEqual(72, (await sharp(data).metadata()).density);
   });
 
-  test('Convert SVG to PNG at 14.4DPI', async (t) => {
+  test('Convert SVG to PNG at 14.4DPI', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(3);
     const { data, info } = await sharp(fixtures.inputSvg, { density: 14.4 })
       .toFormat('png')
@@ -85,7 +85,7 @@ suite('SVG input', () => {
     }
   });
 
-  test('Convert SVG with embedded images to PNG, respecting dimensions, autoconvert to PNG', async (t) => {
+  test('Convert SVG with embedded images to PNG, respecting dimensions, autoconvert to PNG', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const { data, info } = await sharp(fixtures.inputSvgWithEmbeddedImages)
       .toBuffer({ resolveWithObject: true });
@@ -96,7 +96,7 @@ suite('SVG input', () => {
     await fixtures.assertSimilar(fixtures.expected('svg-embedded.png'), data);
   });
 
-  test('Converts SVG with truncated embedded PNG', async (t) => {
+  test('Converts SVG with truncated embedded PNG', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(4);
     const truncatedPng = await fs.readFile(fixtures.inputPngTruncated);
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
@@ -111,7 +111,7 @@ suite('SVG input', () => {
     t.assert.strictEqual(info.channels, 4);
   });
 
-  test('Can apply custom CSS', async (t) => {
+  test('Can apply custom CSS', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(1);
     const svg = `<?xml version="1.0" encoding="UTF-8"?>
       <svg  width="10" height="10" xmlns="http://www.w3.org/2000/svg">
@@ -154,7 +154,7 @@ suite('SVG input', () => {
     );
   });
 
-  test('Fails to render SVG larger than 32767x32767', async (t) => {
+  test('Fails to render SVG larger than 32767x32767', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(
       () => sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="32768" height="1" />')).toBuffer(),
@@ -162,7 +162,7 @@ suite('SVG input', () => {
     );
   });
 
-  test('Fails to render scaled SVG larger than 32767x32767', async (t) => {
+  test('Fails to render scaled SVG larger than 32767x32767', { skip: fixtures.unsupported('svg-input') }, async (t) => {
     t.plan(1);
     await t.assert.rejects(
       () => sharp(Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="32767" height="1" />')).resize(32768).toBuffer(),

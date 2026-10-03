@@ -12,6 +12,7 @@ const {
   inputJpg,
   inputGifAnimated,
   inputPng,
+  unsupported,
 } = require('../fixtures');
 
 suite('AVIF', () => {
@@ -50,7 +51,7 @@ suite('AVIF', () => {
     });
   });
 
-  test('can convert JPEG to AVIF', async (t) => {
+  test('can convert JPEG to AVIF', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const data = await sharp(inputJpg)
       .resize(32)
@@ -81,7 +82,7 @@ suite('AVIF', () => {
     });
   });
 
-  test('can convert PNG to lossless AVIF', async (t) => {
+  test('can convert PNG to lossless AVIF', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const data = await sharp(inputPng)
       .resize(32)
@@ -112,7 +113,7 @@ suite('AVIF', () => {
     });
   });
 
-  test('can passthrough AVIF', async (t) => {
+  test('can passthrough AVIF', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const data = await sharp(inputAvif).resize(32).toBuffer();
     const { size, ...metadata } = await sharp(data).metadata();
@@ -140,7 +141,7 @@ suite('AVIF', () => {
     });
   });
 
-  test('can convert animated GIF to non-animated AVIF', async (t) => {
+  test('can convert animated GIF to non-animated AVIF', { skip: unsupported('gif-input', 'heif-output') }, async (t) => {
     t.plan(1);
     const data = await sharp(inputGifAnimated, { animated: true })
       .resize(10)
@@ -171,7 +172,7 @@ suite('AVIF', () => {
     });
   });
 
-  test('should cast to uchar', async (t) => {
+  test('should cast to uchar', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const data = await sharp(inputJpg)
       .resize(32)
@@ -237,7 +238,7 @@ suite('AVIF', () => {
     );
   });
 
-  test('Different tune options result in different file sizes', async (t) => {
+  test('Different tune options result in different file sizes', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const ssim = await sharp(inputJpg)
       .resize(32)
@@ -250,7 +251,7 @@ suite('AVIF', () => {
     t.assert.ok(ssim.length > iq.length);
   });
 
-  test('Auto tune defaults to iq for lossy', async (t) => {
+  test('Auto tune defaults to iq for lossy', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const iq = await sharp(inputJpg)
       .resize(32)
@@ -263,7 +264,7 @@ suite('AVIF', () => {
     t.assert.ok(auto.length === iq.length);
   });
 
-  test('Auto tune defaults to ssim for lossless', async (t) => {
+  test('Auto tune defaults to ssim for lossless', { skip: unsupported('heif-output') }, async (t) => {
     t.plan(1);
     const ssim = await sharp(inputJpg)
       .resize(32)
