@@ -97,6 +97,7 @@
     "build": "node install/build.js",
     "build:dist": "node scripts/build.mjs",
     "build:libvips-heic": "scripts/libvips-heic/build.sh",
+    "build:win32": "scripts/libvips-heic/build-sharp-win32.sh",
     "clean": "rm -rf src/build/ test/fixtures/output.*",
     "test": "npm run lint && npm run test-unit",
     "lint": "npm run lint-cpp && npm run lint-js && npm run lint-types && npm run lint-publish",
